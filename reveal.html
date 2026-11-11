@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Breed Reveal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <main class="wrap">
+    <header class="head">
+      <span class="tag">For the reveal</span>
+      <h1>The results are in</h1>
+      <p>Type in the real DNA breakdown to score everyone's guess. Nothing on this page is saved or shared; it only runs on this screen.</p>
+    </header>
+
+    <section class="card" aria-labelledby="actual-title">
+      <div>
+        <span class="eyebrow">DNA test result</span>
+        <h2 id="actual-title">Actual breakdown</h2>
+      </div>
+      <div class="rows" id="actual-rows"></div>
+      <div class="field">
+        <div class="comp" id="actual-preview"></div>
+        <div class="total"><span id="actual-total"></span></div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" id="score">Score the guesses</button>
+        <button class="btn ghost" type="button" id="add-row">Add a breed</button>
+      </div>
+      <p class="muted" style="font-size:.88rem">Score = how much of the real breakdown each guess covered. For every breed, a guess earns the smaller of its % and the real %. A perfect guess scores 100.</p>
+    </section>
+
+    <section class="card" id="board-card" hidden aria-labelledby="board-title">
+      <div class="stats-head">
+        <div>
+          <span class="eyebrow">Leaderboard</span>
+          <h2 id="board-title">Who knew best</h2>
+        </div>
+        <span class="muted" id="board-count"></span>
+      </div>
+      <ol class="board" id="board"></ol>
+    </section>
+
+    <p class="foot"><a href="index.html">Back to the guessing page</a></p>
+  </main>
+
+  <script src="config.js?v=2"></script>
+  <script src="js/breeds.js?v=2"></script>
+  <script src="js/picker.js?v=2"></script>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/common.js?v=2"></script>
+  <script src="js/reveal.js?v=2"></script>
+</body>
+</html>

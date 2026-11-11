@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guess the Breed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <main class="wrap">
+    <header class="head">
+      <span class="tag">DNA results pending</span>
+      <h1>What breed is <em id="dog-name">our dog</em>?</h1>
+      <p id="intro">We sent off a DNA test. Before the results come back, take your best guess: pick up to three breeds and how much of each.</p>
+      <div class="banner" id="demo-banner" hidden>
+        Demo mode: guesses are only saved in this browser. Connect a Google Sheet in <code>config.js</code> to collect guesses from everyone.
+      </div>
+    </header>
+
+    <section class="gallery" id="gallery" aria-label="Photos"></section>
+
+    <section class="card" id="guess-card" aria-labelledby="guess-title">
+      <div>
+        <span class="eyebrow">Your guess</span>
+        <h2 id="guess-title">Top three breeds</h2>
+      </div>
+
+      <form id="guess-form" novalidate>
+        <div class="rows" style="gap:20px">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" maxlength="40" autocomplete="given-name" placeholder="So we can crown a winner">
+          </div>
+
+          <div class="field">
+            <span class="label">Breeds and percentages</span>
+            <p class="hint">Start typing and pick from the list. Names match Embark's DNA report, so your guess can be scored. Need ideas? <a href="https://embarkvet.com/dog-breeds-list/" target="_blank" rel="noopener">Browse Embark's breed list</a>.</p>
+            <div class="rows" id="breed-rows"></div>
+          </div>
+
+          <div class="field">
+            <div class="comp" id="preview"></div>
+            <div class="total"><span id="total-text"></span><span id="rest-text"></span></div>
+          </div>
+
+          <p class="error" id="form-error" role="alert"></p>
+
+          <div class="actions">
+            <button class="btn" type="submit" id="submit">Submit my guess</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="find" id="find-area">
+        <button class="linkish" type="button" id="find-toggle" aria-controls="find-box">Already guessed on another device? Find your guess</button>
+        <div id="find-box" hidden>
+          <form class="find-form" id="find-form" novalidate>
+            <label for="find-name">Name you guessed under</label>
+            <div class="find-row">
+              <input type="text" id="find-name" maxlength="40" autocomplete="given-name">
+              <button class="btn ghost" type="submit">Find</button>
+            </div>
+            <p class="muted find-msg" id="find-msg" role="status"></p>
+          </form>
+        </div>
+      </div>
+
+      <div class="done" id="done" hidden>
+        <p class="check" id="done-title">Guess locked in.</p>
+        <div id="my-guess"></div>
+        <div class="actions">
+          <button class="btn ghost" type="button" id="again">Submit another guess</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card stats" id="stats" aria-labelledby="stats-title">
+      <div class="stats-head">
+        <div>
+          <span class="eyebrow">What everyone thinks</span>
+          <h2 id="stats-title">The crowd's guess</h2>
+        </div>
+        <button class="btn ghost" type="button" id="refresh">Refresh</button>
+      </div>
+      <div id="stats-body">
+        <div class="locked">
+          <strong>Results unlock after you guess.</strong>
+          <span>No peeking at everyone else's answers first.</span>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">Final answer revealed in person. 🐾</p>
+  </main>
+
+  <script src="config.js?v=2"></script>
+  <script src="js/breeds.js?v=2"></script>
+  <script src="js/picker.js?v=2"></script>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/common.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
+</body>
+</html>
