@@ -1,41 +1,30 @@
 (function () {
   const { el, normalizeBreed, summarize, fmtPct, timeAgo, compositionBar, SEG } = window.Common;
-  const cfg = window.APP_CONFIG || {};
   const store = window.GuessStore;
-  const DOG = cfg.DOG_NAME || "our dog";
   const MINE_KEY = "breed-guess-mine";
 
   const $ = (id) => document.getElementById(id);
 
-  // ---- Header -------------------------------------------------------------
-  $("dog-name").textContent = DOG;
-  document.title = "What breed is " + DOG + "?";
-  $("intro").textContent = `We sent off ${DOG}'s DNA test. Before the results come back, take your best guess: pick up to three breeds and how much of each.`;
-  $("demo-banner").hidden = !store.isDemo;
-
-  // ---- Photos -------------------------------------------------------------
+  // ---- Photos of Newk -----------------------------------------------------
+  const PHOTOS = [
+    { src: "photos/newk-1.jpg", alt: "Newk sitting on a garden path, harness on, mouth open" },
+    { src: "photos/newk-2.jpg", alt: "Newk asleep on a rug next to the couch" },
+    { src: "photos/newk-3.jpg", alt: "Newk digging in the sand at the beach" },
+    { src: "photos/newk-4.jpg", alt: "Newk sniffing in the bushes at night" },
+  ];
   (function renderGallery() {
     const g = $("gallery");
-    const photos = cfg.PHOTOS || [];
-    if (!photos.length) {
-      g.append(el("div", { class: "no-photos" },
-        el("div", null, "No photos yet. Drop images in ", el("code", null, "photos/"), " and list them in ", el("code", null, "config.js"), ".")));
-      return;
-    }
-    const main = el("img", { class: "main", src: photos[0], alt: `${DOG}, photo 1 of ${photos.length}` });
-    g.append(main);
-    if (photos.length > 1) {
-      const thumbs = el("div", { class: "thumbs" });
-      photos.forEach((src, i) => {
-        const b = el("button", { type: "button", "aria-label": `Show photo ${i + 1}`, "aria-current": i === 0 ? "true" : "false",
-          onclick: () => {
-            main.src = src; main.alt = `${DOG}, photo ${i + 1} of ${photos.length}`;
-            thumbs.querySelectorAll("button").forEach((x) => x.setAttribute("aria-current", x === b ? "true" : "false"));
-          } }, el("img", { src, alt: "" }));
-        thumbs.append(b);
-      });
-      g.append(thumbs);
-    }
+    const main = el("img", { class: "main", src: PHOTOS[0].src, alt: PHOTOS[0].alt });
+    const thumbs = el("div", { class: "thumbs" });
+    PHOTOS.forEach((p, i) => {
+      const b = el("button", { type: "button", "aria-label": `Show photo ${i + 1}`, "aria-current": i === 0 ? "true" : "false",
+        onclick: () => {
+          main.src = p.src; main.alt = p.alt;
+          thumbs.querySelectorAll("button").forEach((x) => x.setAttribute("aria-current", x === b ? "true" : "false"));
+        } }, el("img", { src: p.src, alt: "" }));
+      thumbs.append(b);
+    });
+    g.append(main, thumbs);
   })();
 
   // ---- Form ---------------------------------------------------------------

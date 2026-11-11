@@ -1,8 +1,6 @@
 (function () {
   const { el, normalizeBreed, scoreGuess, compositionBar } = window.Common;
   const $ = (id) => document.getElementById(id);
-  const dog = (window.APP_CONFIG || {}).DOG_NAME;
-  if (dog) document.querySelector("h1").textContent = `${dog}'s results are in`;
 
   const rowsEl = $("actual-rows");
   const rows = [];

@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Guess the Breed</title>
+  <title>What breed is Newk?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <main class="wrap">
     <header class="head">
       <span class="tag">DNA results pending</span>
-      <h1>What breed is <em id="dog-name">our dog</em>?</h1>
-      <p id="intro">We sent off a DNA test. Before the results come back, take your best guess: pick up to three breeds and how much of each.</p>
-      <div class="banner" id="demo-banner" hidden>
-        Demo mode: guesses are only saved in this browser. Connect a Google Sheet in <code>config.js</code> to collect guesses from everyone.
-      </div>
+      <h1>What breed is <em>Newk</em>?</h1>
+      <p>Newk's Embark DNA test is on its way. Before the results come back, take your best guess: up to three breeds and how much of each.</p>
     </header>
 
     <section class="gallery" id="gallery" aria-label="Photos"></section>
@@ -32,7 +29,7 @@
         <div class="rows" style="gap:20px">
           <div class="field">
             <label for="name">Your name</label>
-            <input type="text" id="name" maxlength="40" autocomplete="given-name" placeholder="So we can crown a winner">
+            <input type="text" id="name" maxlength="40" autocomplete="given-name" placeholder="So I know who won">
           </div>
 
           <div class="field">
@@ -93,14 +90,13 @@
       </div>
     </section>
 
-    <p class="foot">Final answer revealed in person. 🐾</p>
+    <p class="foot">I'll reveal the real answer in person.</p>
   </main>
 
-  <script src="config.js?v=2"></script>
-  <script src="js/breeds.js?v=2"></script>
-  <script src="js/picker.js?v=2"></script>
-  <script src="js/data.js?v=2"></script>
-  <script src="js/common.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/breeds.js?v=3"></script>
+  <script src="js/picker.js?v=3"></script>
+  <script src="js/data.js?v=3"></script>
+  <script src="js/common.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>

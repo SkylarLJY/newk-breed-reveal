@@ -1,39 +1,24 @@
-// Storage layer: a Google Sheet (via its Apps Script web app) when configured,
-// otherwise localStorage (demo mode).
+// Guesses live in my Google Sheet, through the Apps Script in google-sheet-script.gs.
 (function () {
-  const cfg = window.APP_CONFIG || {};
-  const LOCAL_KEY = "breed-guesses-demo";
-  const remote = Boolean(cfg.SHEET_URL);
-
-  function readLocal() {
-    try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; } catch { return []; }
-  }
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbxusLB1ev-fFUznml0lTr3IoiFGxNHuYk0Lt2907gauJyAm7wbg7jHWhZ6lyuqjJRs/exec";
 
   async function listGuesses() {
-    if (!remote) return readLocal();
     let res;
-    try { res = await fetch(cfg.SHEET_URL + "?t=" + Date.now()); }
-    catch { throw new Error("Couldn't reach the guess sheet. Check your connection and try again."); }
+    try { res = await fetch(SHEET_URL + "?t=" + Date.now()); }
+    catch { throw new Error("Couldn't load guesses. Check your connection and try again."); }
     const body = await res.json().catch(() => null);
     if (!res.ok || !body || !body.ok) throw new Error("Couldn't load guesses. Try again in a moment.");
     return body.guesses;
   }
 
   async function addGuess(guess) {
-    const row = { name: guess.name, breeds: guess.breeds };
-    if (!remote) {
-      const all = readLocal();
-      all.unshift(Object.assign({ created_at: new Date().toISOString() }, row));
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(all));
-      return;
-    }
-    // Sent as plain text so the browser doesn't need a CORS preflight, which Apps Script can't answer.
+    // Sent as plain text so the browser skips the CORS preflight, which Apps Script can't answer.
     let res;
-    try { res = await fetch(cfg.SHEET_URL, { method: "POST", body: JSON.stringify(row) }); }
-    catch { throw new Error("Couldn't reach the guess sheet. Check your connection and try again."); }
+    try { res = await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ name: guess.name, breeds: guess.breeds }) }); }
+    catch { throw new Error("Couldn't save your guess. Check your connection and try again."); }
     const body = await res.json().catch(() => null);
     if (!body || !body.ok) throw new Error((body && body.error) || "Couldn't save your guess. Try again in a moment.");
   }
 
-  window.GuessStore = { listGuesses, addGuess, isDemo: !remote };
+  window.GuessStore = { listGuesses, addGuess };
 })();

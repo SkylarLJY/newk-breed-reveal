@@ -2,10 +2,9 @@
  * @OnlyCurrentDoc  Limits this script's access to the one sheet it's attached to.
  */
 
-// Paste this into your Google Sheet: Extensions -> Apps Script.
-// Then Deploy -> New deployment -> Web app
-//   Execute as: Me    Who has access: Anyone
-// and put the /exec URL it gives you into config.js as SHEET_URL.
+// Apps Script behind my Newk guesses Google Sheet (Extensions -> Apps Script).
+// Deployed as a web app: Execute as Me, access Anyone. Its /exec URL is in js/data.js.
+// After editing, redeploy with Deploy -> Manage deployments -> Edit -> New version to keep the same URL.
 
 const SHEET_NAME = "Guesses";
 const MAX_ROWS = 500; // stops runaway spam

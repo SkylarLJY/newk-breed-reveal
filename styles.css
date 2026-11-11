@@ -88,11 +88,6 @@ p { margin: 0; }
 .head h1 em { font-style: normal; color: var(--accent); }
 .head p { max-width: 54ch; color: var(--ink-2); }
 
-.banner {
-  border: 1px dashed var(--tag); border-radius: 10px; padding: 10px 14px;
-  font-size: 0.9rem; color: var(--ink-2);
-}
-.banner code { font-family: var(--font-mono); font-size: 0.85em; }
 
 /* Photos */
 .gallery { display: flex; flex-direction: column; gap: 10px; }
@@ -107,12 +102,6 @@ p { margin: 0; }
 }
 .thumbs button[aria-current="true"] { border-color: var(--accent); }
 .thumbs img { width: 76px; height: 76px; object-fit: cover; }
-.no-photos {
-  aspect-ratio: 4 / 3; border-radius: var(--r); border: 2px dashed var(--line);
-  display: grid; place-items: center; text-align: center; padding: 24px; color: var(--ink-3);
-  max-width: 100%;
-}
-.no-photos code { font-family: var(--font-mono); font-size: 0.85em; color: var(--ink-2); }
 
 /* Card */
 .card {
