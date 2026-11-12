@@ -2,7 +2,7 @@
  * @OnlyCurrentDoc  Limits this script's access to the one sheet it's attached to.
  */
 
-// Apps Script behind my Newk guesses Google Sheet (Extensions -> Apps Script).
+// Apps Script behind my Gnocchi guesses Google Sheet (Extensions -> Apps Script).
 // Deployed as a web app: Execute as Me, access Anyone. Its /exec URL is in js/data.js.
 // After editing, redeploy with Deploy -> Manage deployments -> Edit -> New version to keep the same URL.
 

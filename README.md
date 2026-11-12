@@ -1,6 +1,6 @@
-# What breed is Newk?
+# But what are you, Gnocchi?
 
-Guessing game for Newk's Embark DNA results. Friends guess his top three breeds with percentages, see what everyone else guessed after they submit, and get scored when I reveal the real result in person.
+Guessing game for Gnocchi's Embark DNA results. Friends guess his top three breeds with percentages, see what everyone else guessed after they submit, and get scored when I reveal the real result in person.
 
 - `index.html`: the guessing page
 - `reveal.html`: for reveal day. I enter the Embark breakdown and it ranks everyone. Nothing entered there is saved.

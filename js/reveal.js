@@ -9,7 +9,7 @@
     const breed = window.BreedPicker.create({ id: `actual-breed-${i}`, placeholder: "Breed", label: `Actual breed ${i + 1}`, onChange: preview });
     const pct = el("input", { type: "number", id: `actual-pct-${i}`, min: "0", max: "100", step: "0.1", inputmode: "decimal", placeholder: "0", "aria-label": `Actual breed ${i + 1} percent` });
     rowsEl.append(el("div", { class: "row" },
-      el("span", { class: "dot", style: `background:var(--ink-3)`, "aria-hidden": "true" }, i + 1),
+      (() => { const d = el("span", { class: "dot", "aria-hidden": "true", style: "color:var(--ink-3)" }); d.innerHTML = `<svg class="paw"><use href="#paw"/></svg><b>${i + 1}</b>`; return d; })(),
       breed.el, el("div", { class: "pct" }, pct, el("span", null, "%"))));
     pct.addEventListener("input", preview);
     rows.push({ breed, pct });

@@ -5,16 +5,17 @@
 
   const $ = (id) => document.getElementById(id);
 
-  // ---- Photos of Newk -----------------------------------------------------
+  // ---- Photos of Gnocchi --------------------------------------------------
   const PHOTOS = [
-    { src: "photos/newk-1.jpg", alt: "Newk sitting on a garden path, harness on, mouth open" },
-    { src: "photos/newk-2.jpg", alt: "Newk asleep on a rug next to the couch" },
-    { src: "photos/newk-3.jpg", alt: "Newk digging in the sand at the beach" },
-    { src: "photos/newk-4.jpg", alt: "Newk sniffing in the bushes at night" },
+    { src: "photos/gnocchi-1.jpg", alt: "Gnocchi sitting on a garden path, harness on, mouth open" },
+    { src: "photos/gnocchi-2.jpg", alt: "Gnocchi asleep on a rug next to the couch" },
+    { src: "photos/gnocchi-3.jpg", alt: "Gnocchi digging in the sand at the beach" },
+    { src: "photos/gnocchi-4.jpg", alt: "Gnocchi sniffing in the bushes at night" },
+    { src: "photos/gnocchi-5.jpg", alt: "Gnocchi in a yellow raincoat on a rainy night" },
   ];
   (function renderGallery() {
     const g = $("gallery");
-    const main = el("img", { class: "main", src: PHOTOS[0].src, alt: PHOTOS[0].alt });
+    const main = el("img", { src: PHOTOS[0].src, alt: PHOTOS[0].alt });
     const thumbs = el("div", { class: "thumbs" });
     PHOTOS.forEach((p, i) => {
       const b = el("button", { type: "button", "aria-label": `Show photo ${i + 1}`, "aria-current": i === 0 ? "true" : "false",
@@ -24,10 +25,17 @@
         } }, el("img", { src: p.src, alt: "" }));
       thumbs.append(b);
     });
-    g.append(main, thumbs);
+    g.prepend(el("figure", { class: "polaroid" }, main), thumbs);
   })();
 
   // ---- Form ---------------------------------------------------------------
+  // Numbered paw print in the breed's bar color.
+  function pawDot(color, n) {
+    const d = el("span", { class: "dot", "aria-hidden": "true", style: `color:${color}` });
+    d.innerHTML = `<svg class="paw"><use href="#paw"/></svg><b>${n}</b>`;
+    return d;
+  }
+
   const defaults = [50, 30, 20];
   const rowsEl = $("breed-rows");
   const rows = [0, 1, 2].map((i) => {
@@ -36,7 +44,7 @@
     const pct = el("input", { type: "number", id: `pct-${i}`, min: "1", max: "100", step: "1", inputmode: "numeric",
       value: String(defaults[i]), "aria-label": `Breed ${i + 1} percent` });
     rowsEl.append(el("div", { class: "row" },
-      el("span", { class: "dot", style: `background:${SEG[i]}`, "aria-hidden": "true" }, i + 1),
+      pawDot(SEG[i], i + 1),
       breed.el,
       el("div", { class: "pct" }, pct, el("span", null, "%"))));
     pct.addEventListener("input", updatePreview);
@@ -61,7 +69,7 @@
   updatePreview();
 
   function validate(name, breeds) {
-    if (!name) return "Add your name so we know whose guess this is.";
+    if (!name) return "Add your name so I know whose guess this is.";
     const unpicked = rows.find((r) => r.breed.text && !r.breed.value);
     if (unpicked) return `Pick “${unpicked.breed.text}” from the list that appears as you type, or choose “Not on the list”.`;
     if (!breeds.length) return "Enter at least one breed.";
@@ -85,7 +93,8 @@
     $("form-error").textContent = err;
     if (err) return;
     const btn = $("submit");
-    btn.disabled = true; btn.textContent = "Saving…";
+    const label = btn.querySelector("span");
+    btn.disabled = true; label.textContent = "Saving…";
     try {
       await store.addGuess({ name, breeds });
       const mine = { name, breeds };
@@ -95,7 +104,7 @@
     } catch (ex) {
       $("form-error").textContent = ex.message || "Couldn't save your guess. Try again.";
     } finally {
-      btn.disabled = false; btn.textContent = "Submit my guess";
+      btn.disabled = false; label.textContent = "Submit my guess";
     }
   });
 
@@ -103,7 +112,7 @@
     $("guess-form").hidden = true;
     $("find-area").hidden = true;
     $("done").hidden = false;
-    $("done-title").textContent = `Guess locked in for ${mine.name}.`;
+    $("done-title").textContent = `Good guess, ${mine.name}! It's locked in.`;
     $("my-guess").replaceChildren(
       compositionBar(mine.breeds),
       el("p", { class: "muted", style: "margin-top:8px" },
@@ -170,8 +179,8 @@
 
     body.replaceChildren(el("div", { class: "stats" },
       tiles,
-      el("div", { class: "rows", style: "gap:14px" }, el("h3", { style: "font-size:1.1rem" }, "Crowd blend"), bars, blendNote),
-      el("div", { class: "rows", style: "gap:14px" }, el("h3", { style: "font-size:1.1rem" }, "Latest guesses"), feed)));
+      el("div", { class: "rows", style: "gap:14px" }, el("h3", null, "The pack's average"), bars, blendNote),
+      el("div", { class: "rows", style: "gap:14px" }, el("h3", null, "Latest guesses"), feed)));
   }
 
   $("refresh").addEventListener("click", loadStats);
