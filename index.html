@@ -7,10 +7,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <script src="js/theme.js?v=1"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -20,6 +21,8 @@
       <ellipse cx="24.5" cy="13" rx="3" ry="3.8"/>
     </symbol>
   </svg>
+
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"></button>
 
   <main class="wrap">
     <header class="head">
@@ -37,7 +40,7 @@
     <section class="card meet" aria-labelledby="meet-title">
       <div>
         <span class="eyebrow">Your clues</span>
-        <h2 id="meet-title">Meet Gnocchi</h2>
+        <h2 id="meet-title">Gnocchi facts</h2>
       </div>
       <dl class="facts">
         <div><dt>Age</dt><dd>1 year</dd></div>
@@ -66,7 +69,7 @@
         <div class="rows" style="gap:22px">
           <div class="field">
             <label for="name">Your name</label>
-            <input type="text" id="name" maxlength="40" autocomplete="given-name" placeholder="So I know who won">
+            <input type="text" id="name" maxlength="40" autocomplete="given-name">
           </div>
 
           <div class="field">
@@ -108,6 +111,34 @@
           <p class="check" id="done-title">Good guess! It's locked in.</p>
         </div>
         <div id="my-guess"></div>
+
+        <div class="rsvp" id="rsvp">
+          <div>
+            <span class="eyebrow">You're invited</span>
+            <h3>Want to come to the breed reveal party?</h3>
+            <p class="muted">Details to come. Let me know if you're in and I'll send them your way.</p>
+          </div>
+          <form id="rsvp-form" novalidate>
+            <div class="rsvp-choices" role="radiogroup" aria-label="Are you coming?">
+              <label class="choice"><input type="radio" name="rsvp-answer" id="rsvp-yes" value="yes"><span>I'm in!</span></label>
+              <label class="choice"><input type="radio" name="rsvp-answer" id="rsvp-maybe" value="maybe"><span>Maybe</span></label>
+              <label class="choice"><input type="radio" name="rsvp-answer" id="rsvp-no" value="no"><span>Can't make it</span></label>
+            </div>
+            <div class="field" id="rsvp-contact-field" hidden>
+              <label for="rsvp-contact">Best way to reach you</label>
+              <input type="text" id="rsvp-contact" maxlength="100" autocomplete="off" placeholder="Whatever works best for you">
+            </div>
+            <p class="error" id="rsvp-error" role="alert"></p>
+            <div class="actions">
+              <button class="btn" type="submit" id="rsvp-submit"><span>Send RSVP</span></button>
+            </div>
+          </form>
+          <div class="rsvp-done" id="rsvp-done" hidden>
+            <p class="check" id="rsvp-done-text"></p>
+            <button class="linkish" type="button" id="rsvp-change">Change my RSVP</button>
+          </div>
+        </div>
+
         <div class="actions">
           <button class="btn ghost" type="button" id="again">Submit another guess</button>
         </div>
@@ -130,14 +161,12 @@
         </div>
       </div>
     </section>
-
-    <p class="foot"><svg class="paw" aria-hidden="true"><use href="#paw"/></svg>The real answer gets revealed in person.</p>
   </main>
 
   <script src="js/breeds.js?v=6"></script>
   <script src="js/picker.js?v=6"></script>
-  <script src="js/data.js?v=6"></script>
-  <script src="js/common.js?v=6"></script>
-  <script src="js/app.js?v=6"></script>
+  <script src="js/data.js?v=7"></script>
+  <script src="js/common.js?v=7"></script>
+  <script src="js/app.js?v=7"></script>
 </body>
 </html>

@@ -113,6 +113,7 @@
     $("find-area").hidden = true;
     $("done").hidden = false;
     $("done-title").textContent = `Good guess, ${mine.name}! It's locked in.`;
+    showRsvp();
     $("my-guess").replaceChildren(
       compositionBar(mine.breeds),
       el("p", { class: "muted", style: "margin-top:8px" },
@@ -127,6 +128,66 @@
     $("name").value = "";
     updatePreview();
     $("name").focus();
+  });
+
+  // ---- RSVP for the reveal party -------------------------------------------
+  const RSVP_KEY = "breed-rsvp";
+  const rsvpForm = $("rsvp-form");
+  const answerInputs = [...rsvpForm.querySelectorAll('input[name="rsvp-answer"]')];
+  const chosenAnswer = () => (answerInputs.find((i) => i.checked) || {}).value || "";
+
+  function getRsvp() {
+    try { return JSON.parse(localStorage.getItem(RSVP_KEY)); } catch { return null; }
+  }
+
+  function syncContactField() {
+    const a = chosenAnswer();
+    $("rsvp-contact-field").hidden = !(a === "yes" || a === "maybe");
+  }
+  answerInputs.forEach((i) => i.addEventListener("change", () => { $("rsvp-error").textContent = ""; syncContactField(); }));
+
+  function showRsvp() {
+    const saved = getRsvp();
+    if (!saved) { rsvpForm.hidden = false; $("rsvp-done").hidden = true; return; }
+    const where = saved.contact ? ` at ${saved.contact}` : "";
+    $("rsvp-done-text").textContent =
+      saved.answer === "yes" ? `You're on the list! I'll send the details${where}.` :
+      saved.answer === "maybe" ? `Got it. I'll keep you posted${where}.` :
+      "No worries, thanks for letting me know.";
+    rsvpForm.hidden = true;
+    $("rsvp-done").hidden = false;
+  }
+
+  $("rsvp-change").addEventListener("click", () => {
+    const saved = getRsvp() || {};
+    answerInputs.forEach((i) => { i.checked = i.value === saved.answer; });
+    $("rsvp-contact").value = saved.contact || "";
+    syncContactField();
+    rsvpForm.hidden = false;
+    $("rsvp-done").hidden = true;
+  });
+
+  rsvpForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const answer = chosenAnswer();
+    const contact = answer === "no" ? "" : $("rsvp-contact").value.trim();
+    const mine = getMine();
+    let err = "";
+    if (!answer) err = "Pick one: I'm in, Maybe, or Can't make it.";
+    else if (answer !== "no" && !contact) err = "Add a way to reach you so I can send you the details.";
+    $("rsvp-error").textContent = err;
+    if (err || !mine) return;
+    const btn = $("rsvp-submit"), label = btn.querySelector("span");
+    btn.disabled = true; label.textContent = "Sending…";
+    try {
+      await store.addRsvp({ name: mine.name, answer, contact });
+      try { localStorage.setItem(RSVP_KEY, JSON.stringify({ answer, contact })); } catch {}
+      showRsvp();
+    } catch (ex) {
+      $("rsvp-error").textContent = ex.message;
+    } finally {
+      btn.disabled = false; label.textContent = "Send RSVP";
+    }
   });
 
   // ---- Stats --------------------------------------------------------------
@@ -158,12 +219,11 @@
         s.topFirst ? el("span", { class: "muted", style: "font-size:.82rem" }, `${s.topFirst[1]} of ${s.n} people`) : null));
 
     const top = s.breeds.slice(0, 8);
-    const max = Math.max(...top.map((b) => b.share), 1);
     const bars = el("div", { class: "bars" }, top.map((b) =>
       el("div", { class: "bar-row", title: `${b.breed}: crowd average ${fmtPct(b.share)}; picked by ${b.people}; ${fmtPct(b.avgWhenPicked)} on average when picked` },
         el("span", { class: "name" }, b.breed),
         el("span", { class: "val" }, fmtPct(b.share)),
-        el("div", { class: "track" }, el("div", { class: "fill", style: `width:${(b.share / max) * 100}%` })),
+        el("div", { class: "track" }, el("div", { class: "fill", style: `width:${Math.min(b.share, 100)}%` })),
         el("span", { class: "sub" }, `Picked by ${b.people} of ${s.n} · ${fmtPct(b.avgWhenPicked)} when picked`))));
     const rest = Math.max(0, 100 - s.breeds.reduce((t, b) => t + b.share, 0));
     const blendNote = el("p", { class: "muted", style: "font-size:.85rem" },

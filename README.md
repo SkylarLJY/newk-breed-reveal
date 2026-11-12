@@ -8,6 +8,7 @@ Guessing game for Gnocchi's Embark DNA results. Friends guess his top three bree
 ## Where things live
 
 - **Guesses:** my Google Sheet, one row per guess. The sheet's Apps Script (`google-sheet-script.gs`) is the only way the site reads or writes it, and its URL is in `js/data.js`. To remove a junk guess, delete its row.
+- **Party RSVPs:** a separate "RSVPs" tab in the same sheet, one row per name (answering again updates it). The site never reads RSVPs back, so contact details stay private to the sheet.
 - **Photos:** `photos/`, listed in `js/app.js`. Resized, with location data removed. The originals are in `../newk-photo-originals`.
 - **Breed list:** `js/breeds.js`, using Embark's breed names (from embarkvet.com, Nov 2026) so guesses can be scored. Designer crosses are left out, and the only village dogs are Chinese, Korean and Japanese.
 

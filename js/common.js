@@ -22,6 +22,9 @@
   }
 
   // Aggregate stats across all guesses.
+  // Ignore anything that isn't a sensible percentage, so one bad row can't skew the stats.
+  const cleanPct = (v) => { const n = Number(v); return n >= 0 && n <= 100 ? n : 0; };
+
   function summarize(guesses) {
     const n = guesses.length;
     const by = new Map();
@@ -32,7 +35,7 @@
         if (!name) return;
         const e = by.get(name) || { breed: name, people: 0, totalPct: 0 };
         e.people += 1;
-        e.totalPct += Number(b.pct) || 0;
+        e.totalPct += cleanPct(b.pct);
         by.set(name, e);
         if (i === 0) firstPicks.set(name, (firstPicks.get(name) || 0) + 1);
       });
@@ -44,7 +47,7 @@
       avgWhenPicked: e.totalPct / e.people, // average % among people who picked it
     })).sort((a, b) => b.share - a.share);
     const topFirst = [...firstPicks.entries()].sort((a, b) => b[1] - a[1])[0] || null;
-    const avgNamed = n ? guesses.reduce((s, g) => s + (g.breeds || []).reduce((t, b) => t + (Number(b.pct) || 0), 0), 0) / n : 0;
+    const avgNamed = n ? guesses.reduce((s, g) => s + (g.breeds || []).reduce((t, b) => t + cleanPct(b.pct), 0), 0) / n : 0;
     return { n, breeds, topFirst, distinct: breeds.length, avgNamed };
   }
 

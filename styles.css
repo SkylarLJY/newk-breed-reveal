@@ -1,26 +1,32 @@
-/* Layout: one column like a puppy scrapbook page — a polaroid of Gnocchi, the guess card, then the pack's results. */
+/* Layout: one column like a puppy scrapbook page (palette from his yellow raincoat and blue collar) — a polaroid of Gnocchi, the guess card, then the pack's results. */
 :root {
-  --bg: #e4eff0;            /* pale harness teal */
+  --bg: #fff7ef;            /* peachy warm white */
+  --well: #fff1e4;          /* inputs and tiles inside cards */
   --surface: #ffffff;
-  --paper: #fffdf9;         /* polaroid paper */
-  --ink: #3a2a1f;           /* puppy-nose brown */
-  --ink-2: #6a5646;
-  --ink-3: #8f7c6c;
-  --line: #d9e3e2;
-  --accent: #b65a12;        /* Gnocchi ginger: buttons, links */
-  --accent-press: #8a420b;
+  --paper: #ffffff;         /* polaroid paper */
+  --ink: #3b2340;           /* rainy-night charcoal */
+  --ink-2: #6e5670;
+  --ink-3: #8d7590;
+  --line: #f5e3d3;
+  --accent: #c9490a;        /* tangerine: buttons, links */
+  --accent-press: #8f3205;
   --accent-ink: #ffffff;
-  --accent-soft: #fbe8d6;
-  --bone: #f3d6a4;          /* bone badge, highlights */
-  --bone-ink: #4a3110;
-  --seg-1: #c4661a;
-  --seg-2: #1a7fc0;
-  --seg-3: #a88414;
-  --seg-rest: #d6dedd;
+  --accent-soft: #ffe6d3;
+  --bone: #ffd23f;          /* sunny yellow: winner highlight */
+  --bone-ink: #3b2340;
+  --seg-1: #d14f0a;
+  --seg-2: #1f86d6;
+  --seg-3: #2e9a5c;
+  --seg-rest: #f0dfd0;
   --danger: #b4392f;
   --good: #2c7a3f;
-  --shadow: 0 1px 0 rgba(58, 42, 31, 0.04), 0 10px 30px -12px rgba(58, 42, 31, 0.22);
-  --paw: rgba(58, 42, 31, 0.055);
+  --shadow: 0 2px 0 rgba(201, 73, 10, 0.06), 0 12px 28px -12px rgba(143, 50, 5, 0.28);
+  --paw: rgba(201, 73, 10, 0.07);
+  --candy-1: #ffe3cf;       /* peach */
+  --candy-2: #d9f5e4;       /* mint */
+  --candy-3: #ebe2ff;       /* lilac */
+  --candy-4: #dcefff;       /* sky */
+  --candy-5: #fff0b8;       /* butter */
 
   --font-display: "Fredoka", "Avenir Next Rounded", "Arial Rounded MT Bold", system-ui, sans-serif;
   --font-body: "Nunito", "Avenir Next", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -29,30 +35,66 @@
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141c1b;
-    --surface: #1f2826;
-    --paper: #f4eee6;
-    --ink: #f4ebe2;
-    --ink-2: #c3b4a7;
-    --ink-3: #93857a;
-    --line: #2f3b39;
-    --accent: #e08a45;
-    --accent-press: #a85d22;
-    --accent-ink: #231407;
-    --accent-soft: #3a2a1d;
-    --bone: #e9c78e;
-    --bone-ink: #3a2508;
-    --seg-1: #c8722a;
-    --seg-2: #4a97d6;
-    --seg-3: #b08a2c;
-    --seg-rest: #34413f;
+  :root:not([data-theme="light"]) {
+    --bg: #1b1713;
+    --surface: #262019;
+    --well: #1e1915;
+    --paper: #f6f0e2;
+    --ink: #f6efe4;
+    --ink-2: #c9bba8;
+    --ink-3: #978a7a;
+    --line: #3a3128;
+    --accent: #f5c84a;
+    --accent-press: #b48a1c;
+    --accent-ink: #1d1a08;
+    --accent-soft: #3a3022;
+    --bone: #f5c84a;
+    --bone-ink: #1d1a08;
+    --seg-1: #5b8cf0;
+    --seg-2: #d27a2e;
+    --seg-3: #c7609f;
+    --seg-rest: #3d342a;
     --danger: #ef7a6e;
     --good: #6cc183;
     --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
-    --paw: rgba(244, 235, 226, 0.045);
+    --paw: rgba(245, 200, 74, 0.05);
+    --candy-1: #2e271f;
+    --candy-2: #2e271f;
+    --candy-3: #2e271f;
+    --candy-4: #2e271f;
+    --candy-5: #2e271f;
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #1b1713;
+  --surface: #262019;
+  --well: #1e1915;
+  --paper: #f6f0e2;
+  --ink: #f6efe4;
+  --ink-2: #c9bba8;
+  --ink-3: #978a7a;
+  --line: #3a3128;
+  --accent: #f5c84a;
+  --accent-press: #b48a1c;
+  --accent-ink: #1d1a08;
+  --accent-soft: #3a3022;
+  --bone: #f5c84a;
+  --bone-ink: #1d1a08;
+  --seg-1: #5b8cf0;
+  --seg-2: #d27a2e;
+  --seg-3: #c7609f;
+  --seg-rest: #3d342a;
+  --danger: #ef7a6e;
+  --good: #6cc183;
+  --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+  --paw: rgba(245, 200, 74, 0.05);
+  --candy-1: #2e271f;
+  --candy-2: #2e271f;
+  --candy-3: #2e271f;
+  --candy-4: #2e271f;
+  --candy-5: #2e271f;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -136,7 +178,7 @@ p { margin: 0; }
 
 /* Meet Gnocchi */
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; }
-.facts div { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; background: var(--bg); min-width: 0; }
+.facts div { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; background: var(--well); min-width: 0; }
 .facts dt { font: 600 0.75rem/1 var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
 .facts dd { margin: 0; font: 600 1.3rem/1.15 var(--font-display); overflow-wrap: anywhere; }
 @media (max-width: 480px) {
@@ -155,13 +197,57 @@ p { margin: 0; }
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='21' rx='7' ry='6'/%3E%3Cellipse cx='7.5' cy='13' rx='3' ry='3.8'/%3E%3Cellipse cx='13' cy='8' rx='3' ry='3.8'/%3E%3Cellipse cx='19' cy='8' rx='3' ry='3.8'/%3E%3Cellipse cx='24.5' cy='13' rx='3' ry='3.8'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
+.facts div:nth-child(1) { background: var(--candy-1); }
+.facts div:nth-child(2) { background: var(--candy-2); }
+.facts div:nth-child(3) { background: var(--candy-3); }
+.traits li:nth-child(5n+1) { background: var(--candy-5); }
+.traits li:nth-child(5n+2) { background: var(--candy-4); }
+.traits li:nth-child(5n+3) { background: var(--candy-2); }
+.traits li:nth-child(5n+4) { background: var(--candy-1); }
+.traits li:nth-child(5n+5) { background: var(--candy-3); }
+
+/* RSVP for the reveal party */
+.rsvp {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 20px; border-radius: 18px; background: var(--candy-1);
+  border: 2px dashed color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.rsvp h3 { margin-top: 6px; font-size: 1.25rem; }
+.rsvp .muted { margin-top: 6px; font-size: 0.95rem; }
+#rsvp-form { display: flex; flex-direction: column; gap: 14px; }
+.rsvp input[type="text"] { background: var(--surface); }
+.rsvp-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; cursor: pointer; }
+.choice input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.choice span {
+  display: inline-block; padding: 10px 16px; border-radius: 999px;
+  background: var(--surface); border: 2px solid var(--line);
+  font: 600 0.98rem/1 var(--font-display);
+}
+.choice input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.choice input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent); outline-offset: 2px; }
+.rsvp-done { display: flex; flex-direction: column; gap: 8px; }
+.rsvp-done .check { font-size: 1.1rem; }
+
+/* Light/dark toggle */
+.theme-toggle {
+  position: fixed; z-index: 30;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: max(14px, calc(env(safe-area-inset-right, 0px) + 14px));
+  width: 42px; height: 42px; display: grid; place-items: center;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
+}
+.theme-toggle:hover { color: var(--accent); }
+.theme-toggle svg { width: 20px; height: 20px; }
+
 /* Form */
 label, .label { font-weight: 700; font-size: 0.95rem; }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .hint { font-size: 0.88rem; color: var(--ink-3); }
 .hint a { color: var(--accent); text-underline-offset: 3px; font-weight: 600; }
 input[type="text"], input[type="number"] {
-  font: inherit; color: var(--ink); background: var(--bg);
+  font: inherit; color: var(--ink); background: var(--well);
   border: 2px solid transparent; border-radius: 14px; padding: 10px 14px; width: 100%; min-width: 0;
 }
 input:focus { border-color: var(--accent); outline: none; background: var(--surface); }
@@ -243,7 +329,7 @@ input:focus-visible { outline: none; }
 .stats-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 @media (max-width: 520px) { .tiles { grid-template-columns: 1fr 1fr; } .tiles .tile:last-child { grid-column: 1 / -1; } }
-.tile { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 16px; background: var(--bg); }
+.tile { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 16px; background: var(--well); }
 .tile .eyebrow { color: var(--ink-3); }
 .tile .big { font: 600 1.7rem/1.1 var(--font-display); overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 .tile .big.small { font-size: 1.2rem; }
@@ -252,7 +338,7 @@ input:focus-visible { outline: none; }
 .bar-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline; }
 .bar-row .name { font-weight: 700; overflow-wrap: anywhere; }
 .bar-row .val { font-weight: 700; font-variant-numeric: tabular-nums; }
-.bar-row .track { grid-column: 1 / -1; height: 12px; border-radius: 999px; background: var(--bg); overflow: hidden; }
+.bar-row .track { grid-column: 1 / -1; height: 12px; border-radius: 999px; background: var(--well); overflow: hidden; }
 .bar-row .fill { height: 100%; background: var(--seg-1); border-radius: 999px; }
 .bar-row .sub { grid-column: 1 / -1; font-size: 0.84rem; color: var(--ink-3); }
 
@@ -270,7 +356,7 @@ input:focus-visible { outline: none; }
 
 /* Reveal page */
 .board { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.board li { display: grid; grid-template-columns: 38px 1fr auto; gap: 12px; align-items: center; padding: 14px; border-radius: 16px; background: var(--bg); }
+.board li { display: grid; grid-template-columns: 38px 1fr auto; gap: 12px; align-items: center; padding: 14px; border-radius: 16px; background: var(--well); }
 .board .rank { font: 600 1.1rem/1 var(--font-display); color: var(--ink-3); text-align: center; }
 .board li:first-child { background: var(--bone); color: var(--bone-ink); }
 .board li:first-child .rank, .board li:first-child .picks { color: var(--bone-ink); }
